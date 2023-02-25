@@ -15,17 +15,17 @@ show_elapsed_time() {
 }
 
 #for f in vars-100*.cnf
-for f in vars*.cnf
+for f in samples/vars*.cnf
 do
     echo
     echo "------------------"
     echo $f
     echo "KisSAT:"
     start_measuring_time
-    kissat -v $f > outKisSAT
+    ./kissat-rel-3.0.0/build/kissat -v $f > outKisSAT
     stop_measuring_time
-    egrep -o "UNSATISFIABLE|SATISFIABLE" outKisSAT
-    egrep "decisions" outKisSAT
+    grep -E -o "UNSATISFIABLE|SATISFIABLE" outKisSAT
+    grep -E "decisions" outKisSAT
     show_elapsed_time
     echo "misat:"
     start_measuring_time
