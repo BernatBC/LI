@@ -70,15 +70,22 @@ void setLiteralToTrue(int lit){
 
 bool propagateGivesConflict ( ) {
   while ( indexOfNextLitToPropagate < modelStack.size() ) {
+    
+    int litToPropagate = modelStack[indexOfNextLitToPropagate];
+    vector<int> affectedClausules;
+    if (litToPropagate < 0) affectedClausules = positiveApparences[-litToPropagate - 1];
+    else affectedClausules = negativeApparences[litToPropagate - 1];
+
     ++indexOfNextLitToPropagate;
-    for (uint i = 0; i < numClauses; ++i) {
+    for (uint i = 0; i < affectedClausules.size(); ++i) {
+      uint clausule = affectedClausules[i];
       bool someLitTrue = false;
       int numUndefs = 0;
       int lastLitUndef = 0;
-      for (uint k = 0; not someLitTrue and k < clauses[i].size(); ++k){
-	      int val = currentValueInModel(clauses[i][k]);
+      for (uint k = 0; not someLitTrue and k < clauses[clausule].size(); ++k){
+	      int val = currentValueInModel(clauses[clausule][k]);
 	      if (val == TRUE) someLitTrue = true;
-	      else if (val == UNDEF){ ++numUndefs; lastLitUndef = clauses[i][k]; }
+	      else if (val == UNDEF){ ++numUndefs; lastLitUndef = clauses[clausule][k]; }
       }
       if (not someLitTrue and numUndefs == 0) return true; // conflict! all lits false
       else if (not someLitTrue and numUndefs == 1) setLiteralToTrue(lastLitUndef);	
