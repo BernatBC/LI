@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <vector>
+#include <set>
 using namespace std;
 
 #define UNDEF -1
@@ -18,12 +19,16 @@ uint decisionLevel;
 
 vector<vector<int>> positiveApparences;
 vector<vector<int>> negativeApparences;
-
-vector<int> literalOrder;
+vector<int> conflicts;
 
 bool byLiteralSize(int a, int b) {
-	return (negativeApparences[a].size() + positiveApparences[a].size()) >= (negativeApparences[b].size() + positiveApparences[b].size());
+  if (conflicts[a] == conflicts[b]) return (negativeApparences[a].size() + positiveApparences[a].size()) >= (negativeApparences[b].size() + positiveApparences[b].size());
+	return conflicts[a] >= conflicts[b];
 }
+
+set<int, decltype(&byLiteralSize)> literalOrder(&byLiteralSize);
+
+
 
 void readClauses( ){
   // Skip comments
@@ -47,9 +52,9 @@ void readClauses( ){
       else negativeApparences[-lit - 1].push_back(i);
       }
   }
-	literalOrder.resize(numVars);
-  	for (uint i = 0; i < numVars; ++i) literalOrder[i] = i;
-  	sort(literalOrder.begin(), literalOrder.end(), byLiteralSize);   
+  conflicts.resize(numVars);
+  for (uint i = 0; i < numVars; ++i) conflicts[i] = 0;
+  	for (uint i = 0; i < numVars; ++i) literalOrder.insert(i);
 }
 
 int currentValueInModel(int lit){
@@ -87,7 +92,14 @@ bool propagateGivesConflict ( ) {
 	      if (val == TRUE) someLitTrue = true;
 	      else if (val == UNDEF){ ++numUndefs; lastLitUndef = clauses[clausule][k]; }
       }
-      if (not someLitTrue and numUndefs == 0) return true; // conflict! all lits false
+      if (not someLitTrue and numUndefs == 0) {
+        for (uint k = 0; k < clauses[clausule].size(); ++k) {
+          int cl = clauses[clausule][k];
+          if (cl < 0) cl = -cl;
+          conflicts[cl - 1]++;
+        }
+        return true; // conflict! all lits false
+      }
       else if (not someLitTrue and numUndefs == 1) setLiteralToTrue(lastLitUndef);	
     }    
   }
@@ -114,9 +126,11 @@ void backtrack(){
 
 // Heuristic for finding the next decision literal:
 int getNextDecisionLiteral(){
-  for (uint i = 1; i <= numVars; ++i) { // stupid heuristic:
-	int lit = literalOrder[i - 1] + 1;
+  auto it = literalOrder.begin();
+  while (it != literalOrder.end()) {
+    int lit = *it + 1;
     if (model[lit] == UNDEF) return lit;  // returns first UNDEF var, positively
+    it++;
   }
   return 0; // reurns 0 when all literals are defined
 }
