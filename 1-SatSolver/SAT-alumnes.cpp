@@ -21,15 +21,6 @@ vector<vector<int>> positiveApparences;
 vector<vector<int>> negativeApparences;
 vector<int> conflicts;
 
-bool byLiteralSize(int a, int b) {
-  if (conflicts[a] == conflicts[b]) return (negativeApparences[a].size() + positiveApparences[a].size()) >= (negativeApparences[b].size() + positiveApparences[b].size());
-	return conflicts[a] >= conflicts[b];
-}
-
-set<int, decltype(&byLiteralSize)> literalOrder(&byLiteralSize);
-
-
-
 void readClauses( ){
   // Skip comments
   char c = cin.get();
@@ -53,8 +44,7 @@ void readClauses( ){
       }
   }
   conflicts.resize(numVars);
-  for (uint i = 0; i < numVars; ++i) conflicts[i] = 0;
-  	for (uint i = 0; i < numVars; ++i) literalOrder.insert(i);
+  for (uint i = 0; i < numVars; ++i) conflicts[i] = positiveApparences[i].size() + negativeApparences[i].size();
 }
 
 int currentValueInModel(int lit){
@@ -126,13 +116,15 @@ void backtrack(){
 
 // Heuristic for finding the next decision literal:
 int getNextDecisionLiteral(){
-  auto it = literalOrder.begin();
-  while (it != literalOrder.end()) {
-    int lit = *it + 1;
-    if (model[lit] == UNDEF) return lit;  // returns first UNDEF var, positively
-    it++;
+  int maxVal = -1;
+  int var = -1;
+  for (uint i = 1; i <= numVars; ++i) {
+    if (model[i] != UNDEF or conflicts[i - 1] <= maxVal) continue;
+    maxVal = conflicts[i - 1];
+    var = i;
   }
-  return 0; // reurns 0 when all literals are defined
+  if (var == -1) return 0;
+  return var;
 }
 
 void checkmodel(){
@@ -164,6 +156,7 @@ int main(){
       else if (val == UNDEF) setLiteralToTrue(lit);
     }
   
+  //int iterations = 500;
   // DPLL algorithm
   while (true) {
     while ( propagateGivesConflict() ) {
@@ -178,4 +171,9 @@ int main(){
     ++decisionLevel;
     setLiteralToTrue(decisionLit);    // now push decisionLit on top of the mark
   }
+  /*if (iterations <= 0)  {
+    iterations = 500;
+    for (int i = 0; i < numVars; i++) conflicts[i] /= 2;
+  }*/
+  //--iterations;
 }  
