@@ -265,12 +265,12 @@ c [vivify-redundant-tier2-3] scheduled 699 clauses 48% of 1461
 c [vivify-redundant-tier2-3] vivified 89 clauses 64% out of 138 tried
 c [vivify-redundant-tier2-3] 561 clauses remain 80% out of 699 scheduled
 c [vivify-redundant-tier2-3] no prioritized clauses left
-c u  0.05  3 30 3 3 40 1 3943 1378 42% 14 1274 300 100%
+c u  0.04  3 30 3 3 40 1 3943 1378 42% 14 1274 300 100%
 c [vivify-redundant-tier1-3] prioritized 3 clauses 3%
 c [vivify-redundant-tier1-3] scheduled 111 clauses 8% of 1378
 c [vivify-redundant-tier1-3] vivified 70 clauses 63% out of 111 tried
 c [vivify-redundant-tier1-3] all scheduled clauses tried
-c v  0.05  3 30 3 3 40 1 3943 1308 42% 14 1274 300 100%
+c v  0.04  3 30 3 3 40 1 3943 1308 42% 14 1274 300 100%
 c [sweep-3] scheduled 300 variables (257 rescheduled 86%, 205 incomplete 68%)
 c [sweep-3] found 0 equivalences and 0 units
 c [sweep-3] swept 62 variables (238 remain 79%)
@@ -337,12 +337,12 @@ c [vivify-redundant-tier2-4] scheduled 1268 clauses 42% of 3048
 c [vivify-redundant-tier2-4] vivified 52 clauses 48% out of 109 tried
 c [vivify-redundant-tier2-4] 1159 clauses remain 91% out of 1268 scheduled
 c [vivify-redundant-tier2-4] keeping 1159 clauses prioritized 100%
-c u  0.09  3 26 5 4 107 1 7065 3007 41% 13 1268 292 97%
+c u  0.08  3 26 5 4 107 1 7065 3007 41% 13 1268 292 97%
 c [vivify-redundant-tier1-4] prioritizing all 182 scheduled clauses
 c [vivify-redundant-tier1-4] scheduled 182 clauses 6% of 3007
 c [vivify-redundant-tier1-4] vivified 115 clauses 63% out of 182 tried
 c [vivify-redundant-tier1-4] all scheduled clauses tried
-c v  0.09  3 26 5 4 107 1 7065 2892 41% 13 1268 292 97%
+c v  0.08  3 26 5 4 107 1 7065 2892 41% 13 1268 292 97%
 c [sweep-4] scheduled 292 variables (231 rescheduled 79%, 143 incomplete 49%)
 c [sweep-4] found 0 equivalences and 0 units
 c [sweep-4] swept 84 variables (208 remain 71%)
@@ -375,7 +375,7 @@ c [arena] capacity of 2^15 16-byte-words 524288 bytes (512 KB)
 c [arena] filled 25% with 8288 16-byte-words 132608 bytes (130 KB)
 c [arena] not shrinking since more than 25% filled
 c [reduce-6] new limit of 11836 after 2449 conflicts
-c -  0.12  3 17 6 6 139 2 9387 1667 39% 9 1268 292 97%
+c -  0.11  3 17 6 6 139 2 9387 1667 39% 9 1268 292 97%
 c [eliminate-2] elimination limit of 9659 conflicts hit
 c [forward] scheduled 0 irredundant clauses 0%
 c [forward] no clause subsumed nor strengthened out of 0 checked 0%
@@ -414,7 +414,7 @@ c [vivify-redundant-tier1-5] scheduled 302 clauses 9% of 3513
 c [vivify-redundant-tier1-5] vivified 168 clauses 64% out of 263 tried
 c [vivify-redundant-tier1-5] 39 clauses remain 13% out of 302 scheduled
 c [vivify-redundant-tier1-5] no prioritized clauses left
-c v  0.15  3 17 6 6 210 2 11359 3345 40% 9 1270 290 96%
+c v  0.14  3 17 6 6 210 2 11359 3345 40% 9 1270 290 96%
 c [sweep-5] scheduled 290 variables (206 rescheduled 71%, 59 incomplete 20%)
 c [sweep-5] found 0 equivalences and 0 units
 c [sweep-5] swept 118 variables (172 remain 59%)
@@ -534,21 +534,21 @@ v -293 -294 295 -296 297 298 -299 300 0
 c
 c ---- [ profiling ] ---------------------------------------------------------
 c
-c           0.23   89.75 %  search
-c           0.12   45.00 %  focused
-c           0.11   44.69 %  stable
-c           0.03    9.83 %  simplify
-c           0.02    8.21 %  probe
-c           0.01    5.42 %  vivify
-c           0.00    1.47 %  sweep
-c           0.00    1.23 %  substitute
-c           0.00    1.15 %  reduce
-c           0.00    0.99 %  eliminate
-c           0.00    0.62 %  walking
-c           0.00    0.26 %  parse
-c           0.00    0.12 %  subsume
-c           0.00    0.09 %  warmup
-c           0.00    0.06 %  backbone
+c           0.23   89.52 %  search
+c           0.12   44.98 %  focused
+c           0.11   44.49 %  stable
+c           0.03   10.11 %  simplify
+c           0.02    8.50 %  probe
+c           0.01    5.58 %  vivify
+c           0.00    1.54 %  sweep
+c           0.00    1.27 %  substitute
+c           0.00    1.22 %  reduce
+c           0.00    0.96 %  eliminate
+c           0.00    0.64 %  walking
+c           0.00    0.21 %  parse
+c           0.00    0.11 %  subsume
+c           0.00    0.10 %  warmup
+c           0.00    0.07 %  backbone
 c           0.00    0.00 %  extend
 c =============================================
 c           0.26  100.00 %  total
@@ -559,11 +559,11 @@ c backbone_computations:                   12             1565.92 interval
 c backbone_ticks:                       13985 
 c clauses_irredundant:                   1270 
 c clauses_redundant:                     3747 
-c conflicts:                            18791            72876.27 per second
+c conflicts:                            18791            72912.46 per second
 c decisions:                            29359                1.56 per conflict
 c eliminated:                              10                3 %  variables
 c eliminations:                             2             9396    interval
-c eliminate_resolutions:                 9920            38472.28 per second
+c eliminate_resolutions:                 9920            38491.39 per second
 c forward_checks:                        8445 
 c forward_steps:                        21501                3    per check
 c kitten_propagations:                  62803               33.39 per solved
@@ -571,7 +571,7 @@ c kitten_solved:                         1881
 c kitten_ticks:                        156981                2.50 per prop
 c probings:                                 6             3132    interval
 c probing_ticks:                      1088851 
-c propagations:                        962285          3731986    per second
+c propagations:                        962285          3733839    per second
 c reductions:                               9             2088    interval
 c rephased:                                 5             3758    interval
 c restarts:                               293               64.13 interval
@@ -603,7 +603,7 @@ c warmups:                                  2              100 %  walks
 c
 c ---- [ resources ] ---------------------------------------------------------
 c
-c maximum-resident-set-size:          3661824 bytes          3 MB
+c maximum-resident-set-size:          3571712 bytes          3 MB
 c process-time:                                              0.26 seconds
 c
 c ---- [ shutting down ] -----------------------------------------------------

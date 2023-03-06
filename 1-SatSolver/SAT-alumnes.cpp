@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <vector>
-#include <set>
 using namespace std;
 
 #define UNDEF -1
@@ -117,13 +116,12 @@ void backtrack(){
 // Heuristic for finding the next decision literal:
 int getNextDecisionLiteral(){
   int maxVal = -1;
-  int var = -1;
+  int var = 0;
   for (uint i = 1; i <= numVars; ++i) {
     if (model[i] != UNDEF or conflicts[i - 1] <= maxVal) continue;
     maxVal = conflicts[i - 1];
     var = i;
   }
-  if (var == -1) return 0;
   return var;
 }
 
@@ -156,8 +154,8 @@ int main(){
       else if (val == UNDEF) setLiteralToTrue(lit);
     }
   
-  //int iterations = 500;
   // DPLL algorithm
+  //int iterations = 500;
   while (true) {
     while ( propagateGivesConflict() ) {
       if ( decisionLevel == 0) { cout << "UNSATISFIABLE" << endl; return 10; }
@@ -173,7 +171,7 @@ int main(){
   }
   /*if (iterations <= 0)  {
     iterations = 500;
-    for (int i = 0; i < numVars; i++) conflicts[i] /= 2;
-  }*/
-  //--iterations;
+    for (uint i = 0; i < numVars; i++) conflicts[i] /= 2;
+  }
+  --iterations;*/
 }  
