@@ -5,5 +5,5 @@ append(X,[Y|L],[Y|S]):-append(X,L,S).
 last([X|[]], X):-!.
 last([_|XS],S):-last(XS,S).
 
-invert([X|[]],[X]):-!.
+invert([],[]):-!.
 invert([X|L],S):-invert(L,I), append(X,I,S).
