@@ -22,7 +22,7 @@ do
     echo $f
     echo "KisSAT:"
     start_measuring_time
-    ./kissat-rel-3.0.0/build/kissat -v $f > outKisSAT
+    kissat -v $f > outKisSAT
     stop_measuring_time
     grep -E -o "UNSATISFIABLE|SATISFIABLE" outKisSAT
     grep -E "decisions" outKisSAT

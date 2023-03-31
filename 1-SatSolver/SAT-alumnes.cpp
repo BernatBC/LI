@@ -155,7 +155,7 @@ int main(){
     }
   
   // DPLL algorithm
-  //int iterations = 500;
+  //int iterations = 5000;
   while (true) {
     while ( propagateGivesConflict() ) {
       if ( decisionLevel == 0) { cout << "UNSATISFIABLE" << endl; return 10; }
@@ -170,7 +170,7 @@ int main(){
     setLiteralToTrue(decisionLit);    // now push decisionLit on top of the mark
   }
   /*if (iterations <= 0)  {
-    iterations = 500;
+    iterations = 5000;
     for (uint i = 0; i < numVars; i++) conflicts[i] /= 2;
   }
   --iterations;*/
