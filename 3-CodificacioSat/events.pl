@@ -168,7 +168,7 @@ main:-  initClauseGeneration,
         write('Generated '), write(C), write(' clauses over '), write(N), write(' variables. '),nl,
         shell('cat header clauses > infile.cnf',_),
         write('Calling solver....'), nl,
-        shell('./kissat-rel-3.0.0/build/kissat -v infile.cnf > model', Result),  % if sat: Result=10; if unsat: Result=20.
+        shell('kissat -v infile.cnf > model', Result),  % if sat: Result=10; if unsat: Result=20.
         treatResult(Result),!.
 
 treatResult(20):- write('Unsatisfiable'), nl, halt.
