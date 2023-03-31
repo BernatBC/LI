@@ -79,7 +79,7 @@ eachWexactlyOneT.
 eachTbetweenMinMaxW:- team(T), findall(wt(W,T), worker(W), Workers), minSize(Min), maxSize(Max), atLeast(Min, Workers), atMost(Max, Workers), fail.
 eachTbetweenMinMaxW.
 
-eachTmaxS:- team(T), findall(wt(W,T), worker(W), Workers), member(W1, Workers), member(W2, Workers), W1=wt(Wo1,_), W2=wt(Wo2,_),incompatibleWorkers(Wo1,Wo2), atMost(1, [W1, W2]), fail.
+eachTmaxS:- team(T), worker(W1), worker(W2), incompatibleWorkers(W1,W2), atMost(1, [wt(W1,T), wt(W2,T)]), fail.
 eachTmaxS.
 
 
