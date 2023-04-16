@@ -97,7 +97,7 @@ eachRouteAtMostOnceADay.
 nextDayStartAtLocation:- consecutiveDays(D1,D2), bus(B), trip(C1-C2), trip(C3-C4), C2 \= C3, writeOneClause([-bdcc(B,D1,C1,C2),-bdcc(B,D2,C3,C4)]),fail.
 nextDayStartAtLocation.
 
-distanceLimit:-consecutiveDays(D1,D2), bus(B), trip(C1-C2), trip(C2-C3), tooLongDist(C1-C2-C3), writeOneClause([-bdcc(B,D1,C1,C2),-bdcc(B,D2,C2,C3)]),fail.
+distanceLimit:-consecutiveDays(D1,D2), bus(B), tooLongDist(C1-C2-C3), writeOneClause([-bdcc(B,D1,C1,C2),-bdcc(B,D2,C2,C3)]),fail.
 distanceLimit.
 
 %%%%%%%  3. DisplaySol: show the solution. Here M contains the literals that are true in the model:
