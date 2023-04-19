@@ -117,6 +117,7 @@ linkDoubles:-
     team(T),
     round(R1), round(R2), R1 is R2 - 1,
     writeOneClause([double(T,R2), -home(T,R1), -home(T,R2)]),
+    writeOneClause([double(T,R2), home(T,R1), home(T,R2)]),
     fail.
 linkDoubles.
 
