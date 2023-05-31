@@ -70,7 +70,6 @@ available(G,H):-   hour(H), gangster(G), \+blocked(G,H).
 %%%%%%%  1. Declare SAT variables to be used: =================================================
 
 satVariable( does(G,T,H) ):- gangster(G), task(T), hour(H).  %  means:  "gangster G does task T at hour H"     (MANDATORY)
-satVariable( aux(G,T,H) ):- gangster(G), task(T), hour(H).
 %%%%%%%  2. Clause generation for the SAT solver: =============================================
 
 % This predicate writeClauses(MaxCost) generates the clauses that guarantee that
